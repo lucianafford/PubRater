@@ -1,18 +1,15 @@
-// Mapbox Access Token
 mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnazV4bjBoYWEyanNkMGxyaWRjbHoifQ.znIKAp83G9yFVD7hqCm3LA';
 
-// Initialize the map
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-74.5, 40], // Default center (you can change this if needed)
+    center: [-74.5, 40], // Default center
     zoom: 9
 });
 
-// Add map navigation controls
 map.addControl(new mapboxgl.NavigationControl());
 
-// Create an array to store the markers
+// Array to store markers
 let markers = [];
 
 // Function to geocode a pub name (convert name to coordinates)
@@ -30,7 +27,7 @@ function geocodePlace(name) {
                 map.setCenter(coordinates);
                 map.setZoom(14); // Adjust zoom level to get a better view of the location
 
-                // Add a marker to the map at the pub location
+                // Create a new marker and add it to the map
                 const marker = new mapboxgl.Marker()
                     .setLngLat(coordinates)
                     .setPopup(new mapboxgl.Popup().setHTML(`<h3>${placeName}</h3>`)) // Optional: Add a popup with the place name
