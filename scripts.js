@@ -1,14 +1,9 @@
-// Initialize the markers array to keep track of all markers
-let markers = [];  
+mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnazV4bjBoYWEyanNkMGxyaWRjbHoifQ.znIKAp83G9yFVD7hqCm3LA';
 
-// Set your Mapbox access token
-mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRkazV4bjBoYWEyanNkMGxyaWRjbHoifQ.znIKAp83G9yFVD7hqCm3LA';
-
-// Initialize the Mapbox map
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-74.5, 40], // Default map center
+    center: [-74.5, 40], // Default center (will be updated)
     zoom: 9
 });
 
@@ -26,17 +21,15 @@ function geocodePlace(name) {
                 const coordinates = data.features[0].geometry.coordinates;
                 const placeName = data.features[0].place_name;
 
-                // Create a new marker and add it to the map
-                const marker = new mapboxgl.Marker()
+                // Update the map center and zoom level to the location of the pub
+                map.setCenter(coordinates);
+                map.setZoom(14); // Adjust zoom level to get a better view of the location
+
+                // Add a marker to the map at the pub location
+                new mapboxgl.Marker()
                     .setLngLat(coordinates)
                     .setPopup(new mapboxgl.Popup().setHTML(`<h3>${placeName}</h3>`)) // Optional: Add a popup with the place name
                     .addTo(map);
-
-                // Store the new marker in the markers array
-                markers.push(marker);
-
-                // Optionally, zoom into the new marker's location
-                map.flyTo({ center: coordinates, zoom: 12 });
             } else {
                 console.error("No results found for this place.");
             }
