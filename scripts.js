@@ -21,7 +21,7 @@ const db = getFirestore(app);
 mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnazV4bjBoYWEyanNkMGxyaWRjbHoifQ.znIKAp83G9yFVD7hqCm3LA';
 const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v10',
+    style: 'mapbox://styles/mapbox/streets-v1',
     center: [-0.1276, 51.5074], // London coordinates (Longitude, Latitude)
     zoom: 9
 });
