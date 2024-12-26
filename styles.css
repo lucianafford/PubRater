@@ -8,16 +8,17 @@ body {
 
 h1 {
     color: #f5d3b5; /* Creamy orange-brown title */
-    font-size: 3em; /* Adjust title size */
+    font-size: 2.5em; /* Adjust title size smaller */
     margin: 0;
-    text-align: center;
+    text-align: left; /* Align to the left */
 }
 
 h2 {
     color: #f5d3b5; /* Creamy orange-brown subtitle */
-    font-size: 1.2em; /* Smaller subtitle */
-    text-align: center;
-    margin-top: 10px;
+    font-size: 1em; /* Smaller subtitle */
+    text-align: left; /* Align to the left */
+    margin-top: 5px;
+    line-height: 1.2; /* Smaller line spacing */
 }
 
 #map {
