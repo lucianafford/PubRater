@@ -20,10 +20,10 @@ const db = getFirestore(app);
 // Mapbox setup
 mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnazV4bjBoYWEyanNkMGxyaWRjbHoifQ.znIKAp83G9yFVD7hqCm3LA';
 const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11', // Using a default style to ensure map loads
-    center: [-0.1276, 51.5074], // London coordinates (Longitude, Latitude)
-    zoom: 12, // Adjusted zoom level for better initial view
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v11', // Using a default style to ensure map loads
+  center: [-0.1276, 51.5074], // London coordinates (Longitude, Latitude)
+  zoom: 12, // Adjusted zoom level for better initial view
 });
 map.addControl(new mapboxgl.NavigationControl());
 
@@ -55,7 +55,7 @@ function geocodePlace(name) {
         markers.push(marker);
 
         // Save the marker data to Firestore
-        saveMarkerToFirestore(placeName, coordinates);
+        storeMarker(placeName, coordinates);
       } else {
         console.error("No results found for this place.");
       }
@@ -63,45 +63,16 @@ function geocodePlace(name) {
     .catch(err => console.error('Error geocoding place:', err));
 }
 
-// Function to save marker data to Firestore
-function saveMarkerToFirestore(name, coordinates) {
-  addDoc(collection(db, "markers"), {
-    name: name,
-    coordinates: {
-      lng: coordinates[0],
-      lat: coordinates[1]
-    }
-  })
-  .then(() => {
-    console.log("Marker saved to Firestore");
-  })
-  .catch((error) => {
-    console.error("Error adding document: ", error);
-  });
-}
-
-// Function to load markers from Firestore
-function loadMarkersFromFirestore() {
-  const markersCollection = collection(db, "markers");
-  getDocs(markersCollection)
-    .then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        const data = doc.data();
-        const coordinates = [data.coordinates.lng, data.coordinates.lat];
-        const marker = new mapboxgl.Marker()
-          .setLngLat(coordinates)
-          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${data.name}</h3>`))
-          .addTo(map);
-        markers.push(marker);
-      });
-    })
-    .catch(error => {
-      console.error("Error getting markers: ", error);
-    });
-}
-
 // Function to store marker in Firestore with rating
-async function storeMarker(name, coordinates, rating) {
+async function storeMarker(name, coordinates) {
+  const rating = document.getElementById("rating").value;
+
+  // Ensure that the rating is a valid number
+  if (rating < 1 || rating > 16) {
+    alert("Please enter a valid rating between 1 and 16.");
+    return;
+  }
+
   try {
     const docRef = await addDoc(collection(db, "markers"), {
       name: name,
@@ -109,6 +80,7 @@ async function storeMarker(name, coordinates, rating) {
       rating: rating
     });
     console.log("Marker added with ID: ", docRef.id);
+    alert("Rating submitted successfully!");
   } catch (e) {
     console.error("Error adding document: ", e);
   }
@@ -126,7 +98,7 @@ async function retrieveMarkers() {
     // Create a marker for each document in Firestore
     const marker = new mapboxgl.Marker()
       .setLngLat(coordinates)
-      .setPopup(new mapboxgl.Popup().setHTML(`<h3>${name}</h3><p>Rating: ${rating}</p>`))
+      .setPopup(new mapboxgl.Popup().setHTML(`<h3>${name}</h3><p>Rating: ${rating} / 16</p>`))
       .addTo(map);
   });
 }
