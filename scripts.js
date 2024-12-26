@@ -22,7 +22,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnazV4bjBoYWEya
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-74.5, 40], // Default center
+    center: [-0.1276, 51.5074], // London coordinates (Longitude, Latitude)
     zoom: 9
 });
 map.addControl(new mapboxgl.NavigationControl());
