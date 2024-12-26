@@ -20,59 +20,37 @@ const db = getFirestore(app);
 // Mapbox setup
 mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnazV4bjBoYWEyanNkMGxyaWRjbHoifQ.znIKAp83G9yFVD7hqCm3LA';
 const map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/streets-v11', // Using a default style to ensure map loads
-  center: [-0.1276, 51.5074], // London coordinates (Longitude, Latitude)
-  zoom: 12, // Adjusted zoom level for better initial view
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11', 
+    center: [-0.1276, 51.5074], 
+    zoom: 12, 
 });
 map.addControl(new mapboxgl.NavigationControl());
 
-// Array to store markers
-let markers = [];
+// Function to load markers from Firestore
+async function loadMarkersFromFirestore() {
+  const markersCollection = collection(db, "markers");
+  const querySnapshot = await getDocs(markersCollection);
+  
+  querySnapshot.forEach(doc => {
+    const data = doc.data();
+    const coordinates = [data.coordinates.lng, data.coordinates.lat];
+    const rating = data.rating;
+    const name = data.name;
 
-// Function to geocode a pub name (convert name to coordinates)
-function geocodePlace(name) {
-  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(name)}.json?access_token=${mapboxgl.accessToken}`;
-
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      if (data.features && data.features.length > 0) {
-        const coordinates = data.features[0].geometry.coordinates;
-        const placeName = data.features[0].place_name;
-
-        // Update the map center and zoom level to the location of the pub
-        map.setCenter(coordinates);
-        map.setZoom(14); // Adjust zoom level to get a better view of the location
-
-        // Create a new marker and add it to the map
-        const marker = new mapboxgl.Marker()
-          .setLngLat(coordinates)
-          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${placeName}</h3>`)) // Optional: Add a popup with the place name
-          .addTo(map);
-
-        // Store the marker in the markers array
-        markers.push(marker);
-
-        // Save the marker data to Firestore
-        storeMarker(placeName, coordinates);
-      } else {
-        console.error("No results found for this place.");
-      }
-    })
-    .catch(err => console.error('Error geocoding place:', err));
+    // Create a marker for each document in Firestore
+    const marker = new mapboxgl.Marker()
+      .setLngLat(coordinates)
+      .setPopup(new mapboxgl.Popup().setHTML(`<h3>${name}</h3><p>Rating: ${rating}/16</p>`)) // Add rating to the popup
+      .addTo(map);
+  });
 }
 
-// Function to store marker in Firestore with rating
-async function storeMarker(name, coordinates) {
-  const rating = document.getElementById("rating").value;
+// Call the function to load markers when the page loads
+loadMarkersFromFirestore();
 
-  // Ensure that the rating is a valid number
-  if (rating < 1 || rating > 16) {
-    alert("Please enter a valid rating between 1 and 16.");
-    return;
-  }
-
+// Example of storing a new pub with its rating in Firestore (this would be triggered by your app's logic)
+async function storeMarker(name, coordinates, rating) {
   try {
     const docRef = await addDoc(collection(db, "markers"), {
       name: name,
@@ -80,37 +58,10 @@ async function storeMarker(name, coordinates) {
       rating: rating
     });
     console.log("Marker added with ID: ", docRef.id);
-    alert("Rating submitted successfully!");
   } catch (e) {
     console.error("Error adding document: ", e);
   }
 }
 
-// Function to retrieve all markers from Firestore
-async function retrieveMarkers() {
-  const querySnapshot = await getDocs(collection(db, "markers"));
-  querySnapshot.forEach((doc) => {
-    const data = doc.data();
-    const coordinates = data.coordinates;
-    const rating = data.rating;
-    const name = data.name;
-
-    // Create a marker for each document in Firestore
-    const marker = new mapboxgl.Marker()
-      .setLngLat(coordinates)
-      .setPopup(new mapboxgl.Popup().setHTML(`<h3>${name}</h3><p>Rating: ${rating} / 16</p>`))
-      .addTo(map);
-  });
-}
-
-// Get the pub name from the URL query parameters
-const urlParams = new URLSearchParams(window.location.search);
-const pubName = urlParams.get('pub_name');
-
-// If a pub name is provided in the URL, call the geocode function
-if (pubName) {
-  geocodePlace(pubName);
-}
-
-// Call the function to retrieve all markers when the page loads
-retrieveMarkers();
+// Example to store a predefined pub (you can remove this part later)
+storeMarker("The Test Pub", [-0.1234, 51.5074], 7.5); // Adds a new pub marker with rating 7.5/16
