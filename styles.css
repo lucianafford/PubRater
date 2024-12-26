@@ -21,6 +21,50 @@ h2 {
     line-height: 0.7; /* Smaller line spacing */
 }
 
+#slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#slider {
+    width: 80%;
+    height: 20px;
+    border-radius: 10px;
+    background: linear-gradient(to right, blue, red);
+    position: relative;
+}
+
+#slider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: repeating-linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5) 2px,
+        transparent 2px,
+        transparent 6px
+    );
+    border-radius: 10px;
+}
+
+#slider-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-top: 5px;
+}
+
+#slider-labels span {
+    font-size: 0.9em;
+}
+
 #map {
     width: 100%;
     height: 570px;
