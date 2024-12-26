@@ -17,12 +17,12 @@ h2 {
     color: #f5d3b5; /* Creamy orange-brown subtitle */
     font-size: 1em; /* Smaller subtitle */
     text-align: left; /* Align to the left */
-    margin-top: 5px;
-    line-height: 0.9; /* Smaller line spacing */
+    margin-top: 4px;
+    line-height: 0.7; /* Smaller line spacing */
 }
 
 #map {
     width: 100%;
-    height: 600px;
+    height: 570px;
     margin-top: 17px;
 }
