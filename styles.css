@@ -1,19 +1,23 @@
-/* Import Pattaya font */
-@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
-
 body {
     font-family: 'Pattaya', sans-serif;
-    background-color: #D1C6B1; /* Semi-dark cream color */
-    color: white; /* White text color */
+    background-color: #2c2c2c; /* Warm black background */
+    color: #f5d3b5; /* Creamy orange-brown text */
     margin: 0;
     padding: 20px;
 }
 
 h1 {
-    color: white; /* White text for the title */
-    font-size: 2.5rem;
+    color: #f5d3b5; /* Creamy orange-brown title */
+    font-size: 3em; /* Adjust title size */
+    margin: 0;
     text-align: center;
-    margin-top: 30px;
+}
+
+h2 {
+    color: #f5d3b5; /* Creamy orange-brown subtitle */
+    font-size: 1.2em; /* Smaller subtitle */
+    text-align: center;
+    margin-top: 10px;
 }
 
 #map {
