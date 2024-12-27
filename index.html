@@ -37,7 +37,7 @@
 
   <!-- Custom scripts -->
   <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnazV4bjBoYWEyanNkMGxyaWRjbHoifQ.znIKAp83G9yFVD7hqCm3LA';
+    mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnZnRiMDBmYXYybHNneTNobDNoODEifQ.SIUur0MYADGFIENyXuVwRA';
     
     const map = new mapboxgl.Map({
       container: 'map', // The ID of the map container
@@ -47,6 +47,63 @@
     });
 
     map.addControl(new mapboxgl.NavigationControl());
+
+    // Function to fetch GeoJSON data from the Google Apps Script web app
+    function fetchGeoJSON() {
+      const geoJSONUrl = 'https://script.google.com/macros/s/YOUR_WEB_APP_URL/exec'; // Replace with the actual Web App URL
+
+      fetch(geoJSONUrl)
+        .then(response => response.json())
+        .then(data => {
+          // Add the GeoJSON data to the map
+          map.addSource('pubs', {
+            type: 'geojson',
+            data: data
+          });
+
+          // Add a layer to display the pubs on the map
+          map.addLayer({
+            id: 'pubs-layer',
+            type: 'circle',
+            source: 'pubs',
+            paint: {
+              'circle-radius': 8,
+              'circle-color': '#FF5733',
+              'circle-stroke-color': '#ffffff',
+              'circle-stroke-width': 2
+            }
+          });
+
+          // Add popups to each marker
+          map.on('click', 'pubs-layer', (e) => {
+            var coordinates = e.features[0].geometry.coordinates.slice();
+            var pubName = e.features[0].properties.pubName;
+            var rating = e.features[0].properties.rating;
+
+            // Create a popup with pub details
+            new mapboxgl.Popup()
+              .setLngLat(coordinates)
+              .setHTML(`<h3>${pubName}</h3><p>Rating: ${rating}</p>`)
+              .addTo(map);
+          });
+
+          // Change the cursor to a pointer when hovering over the pubs layer
+          map.on('mouseenter', 'pubs-layer', () => {
+            map.getCanvas().style.cursor = 'pointer';
+          });
+
+          // Reset the cursor when leaving the layer
+          map.on('mouseleave', 'pubs-layer', () => {
+            map.getCanvas().style.cursor = '';
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching GeoJSON data:', error);
+        });
+    }
+
+    // Fetch the GeoJSON data on page load
+    fetchGeoJSON();
 
     // Function to geocode a pub name (convert name to coordinates)
     function geocodePlace(name) {
