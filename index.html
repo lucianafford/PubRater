@@ -80,10 +80,15 @@
             var pubName = e.features[0].properties.pubName;
             var rating = e.features[0].properties.rating;
 
-            // Create a popup with pub details
-            new mapboxgl.Popup()
+            // Create a popup with styled content
+            new mapboxgl.Popup({ offset: 25 })
               .setLngLat(coordinates)
-              .setHTML(`<h3>${pubName}</h3><p>Rating: ${rating}</p>`)
+              .setHTML(`
+                <div style="background-color: #2d2d2d; color: #f5d3b5; border: 2px solid #f5d3b5; padding: 10px; border-radius: 5px; font-family: sans-serif;">
+                  <h3 style="margin: 0; font-size: 1.2em;">${pubName}</h3>
+                  <p style="font-size: 1.2em; font-weight: bold; margin: 5px 0;">Rating: ${rating}/16</p>
+                </div>
+              `)
               .addTo(map);
           });
 
