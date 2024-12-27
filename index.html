@@ -15,13 +15,15 @@
   <link rel="stylesheet" href="styles.css">
   
   <style>
-    /* Reset to white speech bubble */
+    /* Reset to a basic speech bubble with no dark background or border */
     .mapboxgl-popup {
       background-color: #ffffff !important; /* White background */
       color: #000000; /* Black text */
       font-family: sans-serif; /* Font style */
       max-width: 200px; /* Adjust to fit the content */
       padding: 15px;
+      border-radius: 12px; /* Rounded corners for the bubble */
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow for bubble depth */
     }
 
     .mapboxgl-popup .mapboxgl-popup-close-button {
