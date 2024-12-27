@@ -13,22 +13,23 @@
 
   <!-- Custom styles -->
   <style>
-    /* Speech bubble with cream-colored outline */
+    /* Custom styles for the Mapbox popup */
     .mapboxgl-popup {
-      background-color: #ffffff !important; /* White background for the speech bubble */
-      color: #000000; /* Black text */
-      font-family: sans-serif; /* Font style */
-      max-width: 200px; /* Adjust to fit the content */
+      background-color: #ffffff !important;  /* White background */
+      color: #000000;  /* Black text */
+      font-family: sans-serif;  /* Font style */
+      max-width: 200px;  /* Adjust to fit content */
       padding: 15px;
-      border-radius: 12px; /* Rounded corners for the bubble */
-      border: 3px solid #f5d3b5; /* Cream outline */
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow for bubble depth */
-      position: relative; /* Make sure the popup content is positioned properly */
+      border-radius: 12px;  /* Rounded corners */
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  /* Light shadow */
+      position: relative;  /* Ensure proper positioning */
+      border: 3px solid #f5d3b5;  /* Cream-colored border */
     }
 
+    /* Close button styles */
     .mapboxgl-popup .mapboxgl-popup-close-button {
-      color: #000000 !important; /* Close button color */
-      font-size: 1.5em; /* Resize close button */
+      color: #000000 !important;  /* Close button color */
+      font-size: 1.5em;  /* Resize close button */
       position: absolute;
       top: 5px;
       right: 5px;
@@ -37,10 +38,10 @@
       cursor: pointer;
     }
 
-    /* Adjust the point of the speech bubble */
+    /* Speech bubble tip */
     .mapboxgl-popup-tip {
       border-width: 10px;
-      border-top-color: #ffffff; /* White tip */
+      border-top-color: #ffffff;  /* White tip */
       border-bottom-color: transparent;
       border-left-color: transparent;
       border-right-color: transparent;
@@ -48,7 +49,7 @@
 
     /* Title styling */
     .mapboxgl-popup-content h3 {
-      font-size: 1em; /* Normal title size */
+      font-size: 1em;  /* Normal title size */
       margin: 0;
     }
 
@@ -61,19 +62,8 @@
   </style>
 </head>
 <body>
-  <!-- Title and Subtitle -->
-  <h1>PubRater</h1> <!-- This is the title -->
-  <h2>By Lucian Afford</h2> <!-- This is the subtitle -->
-
-  <!-- Hot-to-Cold Slider -->
-  <div id="slider-container">
-    <div id="slider"></div>
-    <div id="slider-labels">
-      <span>-16</span>
-      <span>0</span>
-      <span>16</span>
-    </div>
-  </div>
+  <h1>PubRater</h1> <!-- Title -->
+  <h2>By Lucian Afford</h2> <!-- Subtitle -->
 
   <!-- Map container -->
   <div id="map"></div>
@@ -81,33 +71,32 @@
   <!-- Mapbox GL JS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
 
-  <!-- Custom scripts -->
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnZnRiMDBmYXYybHNneTNobDNoODEifQ.SIUur0MYADGFIENyXuVwRA';
     
     const map = new mapboxgl.Map({
-      container: 'map', // The ID of the map container
-      style: 'mapbox://styles/mapbox/dark-v11', // Default style
+      container: 'map', // Map container ID
+      style: 'mapbox://styles/mapbox/dark-v11',
       center: [-0.1276, 51.5074], // London coordinates
-      zoom: 10.5, // Adjust zoom level
+      zoom: 10.5,
     });
 
     map.addControl(new mapboxgl.NavigationControl());
 
     // Function to fetch GeoJSON data from the Google Apps Script web app
     function fetchGeoJSON() {
-      const geoJSONUrl = 'https://script.google.com/macros/s/AKfycbxw1siuCZUp0YnvNSVmRmFzbibuRVhk2JGr25H2CxFTfjvD5N1NgHFBLmqUXIl5C2slyg/exec'; // Replace with the actual Web App URL
+      const geoJSONUrl = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec'; // Replace with your Web App URL
 
       fetch(geoJSONUrl)
         .then(response => response.json())
         .then(data => {
-          // Add the GeoJSON data to the map
+          // Add GeoJSON data to the map
           map.addSource('pubs', {
             type: 'geojson',
             data: data
           });
 
-          // Add a layer to display the pubs on the map
+          // Add layer to display pubs
           map.addLayer({
             id: 'pubs-layer',
             type: 'circle',
@@ -120,28 +109,25 @@
             }
           });
 
-          // Add popups to each marker
+          // Add click event to show popup with pub details
           map.on('click', 'pubs-layer', (e) => {
             var coordinates = e.features[0].geometry.coordinates.slice();
             var pubName = e.features[0].properties.pubName;
             var rating = e.features[0].properties.rating;
 
-            // Create a popup with pub details using your previous format
+            // Create a popup with pub details
             new mapboxgl.Popup()
               .setLngLat(coordinates)
-              .setHTML(`
-                <h3>${pubName}</h3>
-                <p>Rating: ${rating}</p>
-              `)
+              .setHTML(`<h3>${pubName}</h3><p>Rating: ${rating}</p>`)
               .addTo(map);
           });
 
-          // Change the cursor to a pointer when hovering over the pubs layer
+          // Change cursor to pointer when hovering over pubs layer
           map.on('mouseenter', 'pubs-layer', () => {
             map.getCanvas().style.cursor = 'pointer';
           });
 
-          // Reset the cursor when leaving the layer
+          // Reset cursor when leaving layer
           map.on('mouseleave', 'pubs-layer', () => {
             map.getCanvas().style.cursor = '';
           });
@@ -151,41 +137,8 @@
         });
     }
 
-    // Fetch the GeoJSON data on page load
+    // Fetch GeoJSON data on page load
     fetchGeoJSON();
-
-    // Function to geocode a pub name (convert name to coordinates)
-    function geocodePlace(name) {
-      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(name)}.json?access_token=${mapboxgl.accessToken}`;
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          if (data.features && data.features.length > 0) {
-            const coordinates = data.features[0].geometry.coordinates;
-            const placeName = data.features[0].place_name;
-
-            // Update map center and zoom
-            map.setCenter(coordinates);
-            map.setZoom(14);
-
-            // Create and add marker
-            new mapboxgl.Marker()
-              .setLngLat(coordinates)
-              .setPopup(new mapboxgl.Popup().setHTML(`<h3>${placeName}</h3>`))
-              .addTo(map);
-          } else {
-            console.error("No results found for this place.");
-          }
-        })
-        .catch(err => console.error('Error geocoding place:', err));
-    }
-
-    // Call geocodePlace if pub name is in the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const pubName = urlParams.get('pub_name');
-    if (pubName) {
-      geocodePlace(pubName);
-    }
   </script>
 </body>
 </html>
