@@ -13,53 +13,6 @@
 
   <!-- Custom styles -->
   <link rel="stylesheet" href="styles.css">
-  
-  <style>
-    /* Styling for the speech bubble itself */
-    .mapboxgl-popup {
-      background-color: #ffffff !important; /* White background for the speech bubble */
-      color: #000000; /* Black text */
-      font-family: sans-serif; /* Font style */
-      max-width: 200px; /* Adjust to fit the content */
-      padding: 15px;
-      border-radius: 12px; /* Rounded corners for the bubble */
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow for bubble depth */
-      position: relative; /* Make sure the popup content is positioned properly */
-    }
-
-    .mapboxgl-popup .mapboxgl-popup-close-button {
-      color: #000000 !important; /* Close button color */
-      font-size: 1.5em; /* Resize close button */
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    /* Adjust the point of the speech bubble */
-    .mapboxgl-popup-tip {
-      border-width: 10px;
-      border-top-color: #ffffff; /* White tip */
-      border-bottom-color: transparent;
-      border-left-color: transparent;
-      border-right-color: transparent;
-    }
-
-    /* Title styling */
-    .mapboxgl-popup-content h3 {
-      font-size: 1em; /* Normal title size */
-      margin: 0;
-    }
-
-    /* General content styling */
-    .mapboxgl-popup-content p {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin: 5px 0;
-    }
-  </style>
 </head>
 <body>
   <!-- Title and Subtitle -->
@@ -127,14 +80,12 @@
             var pubName = e.features[0].properties.pubName;
             var rating = e.features[0].properties.rating;
 
-            // Create a popup with styled content
-            new mapboxgl.Popup({ offset: 25 })
+            // Create a popup with pub details using your previous format
+            new mapboxgl.Popup()
               .setLngLat(coordinates)
               .setHTML(`
-                <div>
-                  <h3>${pubName}</h3>
-                  <p>Rating: ${rating}/16</p>
-                </div>
+                <h3>${pubName}</h3>
+                <p>Rating: ${rating}</p>
               `)
               .addTo(map);
           });
