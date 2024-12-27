@@ -13,6 +13,37 @@
 
   <!-- Custom styles -->
   <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    /* Custom popup style */
+    .mapboxgl-popup {
+      background-color: #2d2d2d !important; /* Dark background for the entire popup */
+      border: 2px solid #f5d3b5 !important; /* Light border around the whole popup */
+      border-radius: 5px;
+      padding: 10px;
+      color: #f5d3b5; /* Light text color */
+      font-family: sans-serif; /* Font style */
+    }
+
+    .mapboxgl-popup-close-button {
+      color: #f5d3b5 !important; /* Close button color */
+    }
+
+    .mapboxgl-popup-content {
+      padding: 0; /* Remove extra padding */
+    }
+
+    .mapboxgl-popup-content h3 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    .mapboxgl-popup-content p {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+  </style>
 </head>
 <body>
   <!-- Title and Subtitle -->
@@ -84,9 +115,9 @@
             new mapboxgl.Popup({ offset: 25 })
               .setLngLat(coordinates)
               .setHTML(`
-                <div style="background-color: #2d2d2d; color: #f5d3b5; border: 2px solid #f5d3b5; padding: 10px; border-radius: 5px; font-family: sans-serif;">
-                  <h3 style="margin: 0; font-size: 1.2em;">${pubName}</h3>
-                  <p style="font-size: 1.2em; font-weight: bold; margin: 5px 0;">Rating: ${rating}/16</p>
+                <div>
+                  <h3>${pubName}</h3>
+                  <p>Rating: ${rating}/16</p>
                 </div>
               `)
               .addTo(map);
