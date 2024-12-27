@@ -19,25 +19,40 @@
     .mapboxgl-popup {
       background-color: #2d2d2d !important; /* Dark background for the entire popup */
       border: 2px solid #f5d3b5 !important; /* Light border around the whole popup */
-      border-radius: 5px;
-      padding: 10px;
+      border-radius: 10px;
+      padding: 15px 10px 10px 10px;
       color: #f5d3b5; /* Light text color */
       font-family: sans-serif; /* Font style */
+      max-width: 200px; /* Adjust to fit the content */
     }
 
-    .mapboxgl-popup-close-button {
+    .mapboxgl-popup .mapboxgl-popup-close-button {
       color: #f5d3b5 !important; /* Close button color */
+      font-size: 1.5em; /* Resize close button */
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
     }
 
-    .mapboxgl-popup-content {
-      padding: 0; /* Remove extra padding */
+    /* Adjust the point of the speech bubble */
+    .mapboxgl-popup-tip {
+      border-width: 10px;
+      border-top-color: #f5d3b5; /* Light border around the tip */
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      border-right-color: transparent;
     }
 
+    /* Title styling */
     .mapboxgl-popup-content h3 {
+      font-size: 1em; /* Smaller title */
       margin: 0;
-      font-size: 1.2em;
     }
 
+    /* General content styling */
     .mapboxgl-popup-content p {
       font-size: 1.2em;
       font-weight: bold;
