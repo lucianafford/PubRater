@@ -1,67 +1,85 @@
-// Firebase setup
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PubRater Map</title>
 
-// Your Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAVnztbjhDg-8UvqZNyctAvq_xG-VzSMZ0",
-  authDomain: "pubrater.firebaseapp.com",
-  projectId: "pubrater",
-  storageBucket: "pubrater.firebasestorage.app",
-  messagingSenderId: "265005562249",
-  appId: "1:265005562249:web:7d01614b4ca1db95570958",
-  measurementId: "G-2W13TYS106"
-};
+  <!-- Google Fonts Link for Pattaya -->
+  <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+  <!-- Mapbox GL CSS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" />
 
-// Mapbox setup
-mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnazV4bjBoYWEyanNkMGxyaWRjbHoifQ.znIKAp83G9yFVD7hqCm3LA';
-const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11', 
-    center: [-0.1276, 51.5074], 
-    zoom: 12, 
-});
-map.addControl(new mapboxgl.NavigationControl());
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Title and Subtitle -->
+  <h1>PubRater</h1> <!-- This is the title -->
+  <h2>By Lucian Afford</h2> <!-- This is the subtitle -->
 
-// Function to load markers from Firestore
-async function loadMarkersFromFirestore() {
-  const markersCollection = collection(db, "markers");
-  const querySnapshot = await getDocs(markersCollection);
-  
-  querySnapshot.forEach(doc => {
-    const data = doc.data();
-    const coordinates = [data.coordinates.lng, data.coordinates.lat];
-    const rating = data.rating;
-    const name = data.name;
+  <!-- Hot-to-Cold Slider -->
+  <div id="slider-container">
+    <div id="slider"></div>
+    <div id="slider-labels">
+      <span>-16</span>
+      <span>0</span>
+      <span>16</span>
+    </div>
+  </div>
 
-    // Create a marker for each document in Firestore
-    const marker = new mapboxgl.Marker()
-      .setLngLat(coordinates)
-      .setPopup(new mapboxgl.Popup().setHTML(`<h3>${name}</h3><p>Rating: ${rating}/16</p>`)) // Add rating to the popup
-      .addTo(map);
-  });
-}
+  <!-- Map container -->
+  <div id="map"></div>
 
-// Call the function to load markers when the page loads
-loadMarkersFromFirestore();
+  <!-- Mapbox GL JS -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
 
-// Example of storing a new pub with its rating in Firestore (this would be triggered by your app's logic)
-async function storeMarker(name, coordinates, rating) {
-  try {
-    const docRef = await addDoc(collection(db, "markers"), {
-      name: name,
-      coordinates: coordinates,
-      rating: rating
+  <!-- Custom scripts -->
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnazV4bjBoYWEyanNkMGxyaWRjbHoifQ.znIKAp83G9yFVD7hqCm3LA';
+    
+    const map = new mapboxgl.Map({
+      container: 'map', // The ID of the map container
+      style: 'mapbox://styles/mapbox/dark-v11', // Default style
+      center: [-0.1276, 51.5074], // London coordinates
+      zoom: 10.5, // Adjust zoom level
     });
-    console.log("Marker added with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-}
 
-// Example to store a predefined pub (you can remove this part later)
-storeMarker("The Test Pub", [-0.1234, 51.5074], 7.5); // Adds a new pub marker with rating 7.5/16
+    map.addControl(new mapboxgl.NavigationControl());
+
+    // Function to geocode a pub name (convert name to coordinates)
+    function geocodePlace(name) {
+      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(name)}.json?access_token=${mapboxgl.accessToken}`;
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.features && data.features.length > 0) {
+            const coordinates = data.features[0].geometry.coordinates;
+            const placeName = data.features[0].place_name;
+
+            // Update map center and zoom
+            map.setCenter(coordinates);
+            map.setZoom(14);
+
+            // Create and add marker
+            new mapboxgl.Marker()
+              .setLngLat(coordinates)
+              .setPopup(new mapboxgl.Popup().setHTML(`<h3>${placeName}</h3>`))
+              .addTo(map);
+          } else {
+            console.error("No results found for this place.");
+          }
+        })
+        .catch(err => console.error('Error geocoding place:', err));
+    }
+
+    // Call geocodePlace if pub name is in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const pubName = urlParams.get('pub_name');
+    if (pubName) {
+      geocodePlace(pubName);
+    }
+  </script>
+</body>
+</html>
