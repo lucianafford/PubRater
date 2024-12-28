@@ -1,77 +1,100 @@
-body {
-    font-family: 'Pattaya', sans-serif;
-    background-color: #2c2c2c; /* Warm black background */
-    color: #f5d3b5; /* Creamy orange-brown text */
-    margin: 0;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnZnRiMDBmYXYybHNneTNobDNoODEifQ.SIUur0MYADGFIENyXuVwRA';
+
+const map = new mapboxgl.Map({
+  container: 'map', // The ID of the map container
+  style: 'mapbox://styles/mapbox/dark-v11', // Default style
+  center: [-0.1276, 51.5074], // London coordinates
+  zoom: 10.5, // Adjust zoom level
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+
+// Function to fetch GeoJSON data from the Google Apps Script web app
+function fetchGeoJSON() {
+  const geoJSONUrl = 'https://script.google.com/macros/s/AKfycbxw1siuCZUp0YnvNSVmRmFzbibuRVhk2JGr25H2CxFTfjvD5N1NgHFBLmqUXIl5C2slyg/exec'; // Replace with the actual Web App URL
+
+  fetch(geoJSONUrl)
+    .then(response => response.json())
+    .then(data => {
+      // Add the GeoJSON data to the map
+      map.addSource('pubs', {
+        type: 'geojson',
+        data: data
+      });
+
+      // Add a layer to display the pubs on the map
+      map.addLayer({
+        id: 'pubs-layer',
+        type: 'circle',
+        source: 'pubs',
+        paint: {
+          'circle-radius': 8,
+          'circle-color': '#FF5733',
+          'circle-stroke-color': '#ffffff',
+          'circle-stroke-width': 2
+        }
+      });
+
+      // Add popups to each marker
+      map.on('click', 'pubs-layer', (e) => {
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var pubName = e.features[0].properties.pubName;
+        var rating = e.features[0].properties.rating;
+
+        // Create a popup with pub details
+        new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(`<h3>${pubName}</h3><p>Rating: ${rating}</p>`)
+          .addTo(map);
+      });
+
+      // Change the cursor to a pointer when hovering over the pubs layer
+      map.on('mouseenter', 'pubs-layer', () => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+
+      // Reset the cursor when leaving the layer
+      map.on('mouseleave', 'pubs-layer', () => {
+        map.getCanvas().style.cursor = '';
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching GeoJSON data:', error);
+    });
 }
 
-h1 {
-    color: #f5d3b5; /* Creamy orange-brown title */
-    font-size: 2.5em; /* Adjust title size smaller */
-    margin: 0;
-    text-align: center; /* Center-align the title */
+// Fetch the GeoJSON data on page load
+fetchGeoJSON();
+
+// Function to geocode a pub name (convert name to coordinates)
+function geocodePlace(name) {
+  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(name)}.json?access_token=${mapboxgl.accessToken}`;
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      if (data.features && data.features.length > 0) {
+        const coordinates = data.features[0].geometry.coordinates;
+        const placeName = data.features[0].place_name;
+
+        // Update map center and zoom
+        map.setCenter(coordinates);
+        map.setZoom(14);
+
+        // Create and add marker
+        new mapboxgl.Marker()
+          .setLngLat(coordinates)
+          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${placeName}</h3>`))
+          .addTo(map);
+      } else {
+        console.error("No results found for this place.");
+      }
+    })
+    .catch(err => console.error('Error geocoding place:', err));
 }
 
-h2 {
-    color: #f5d3b5; /* Creamy orange-brown subtitle */
-    font-size: 1em;
-    text-align: center; /* Center-align the subtitle */
-    margin-top: 4px;
-    line-height: 0.7;
-}
-
-#slider-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#slider {
-    width: 150px; /* Fixed small width */
-    height: 20px;
-    border-radius: 10px;
-    background: linear-gradient(to right, blue, red);
-    position: relative;
-}
-
-#slider::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-image: repeating-linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0.5),
-        rgba(255, 255, 255, 0.5) 2px,
-        transparent 2px,
-        transparent 6px
-    );
-    border-radius: 10px;
-}
-
-#slider-labels {
-    display: flex;
-    justify-content: space-between;
-    width: 150px; /* Fixed width */
-    margin-top: 5px;
-}
-
-#slider-labels span {
-    font-size: 0.9em;
-}
-
-#map {
-    width: 100%;
-    height: 600px; /* Increased height for the map */
-    margin-top: 20px;
+// Call geocodePlace if pub name is in the URL
+const urlParams = new URLSearchParams(window.location.search);
+const pubName = urlParams.get('pub_name');
+if (pubName) {
+  geocodePlace(pubName);
 }
