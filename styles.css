@@ -1,145 +1,38 @@
-body {
-    font-family: 'Pattaya', sans-serif;
-    background-color: #2c2c2c; /* Warm black background */
-    color: #f5d3b5; /* Creamy orange-brown text */
-    margin: 0;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PubRater Map</title>
 
-h1 {
-    color: #f5d3b5; /* Creamy orange-brown title */
-    font-size: 2.5em; /* Adjust title size smaller */
-    margin: 0;
-    text-align: center; /* Center-align the title */
-}
+  <!-- Google Fonts Link for Pattaya -->
+  <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
 
-h2 {
-    color: #f5d3b5; /* Creamy orange-brown subtitle */
-    font-size: 1em;
-    text-align: center; /* Center-align the subtitle */
-    margin-top: 4px;
-    line-height: 0.7;
-}
+  <!-- Mapbox GL CSS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" />
 
-#slider-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Title and Subtitle -->
+  <h1>PubRater</h1> <!-- This is the title -->
+  <h2>By Lucian Afford</h2> <!-- This is the subtitle -->
 
-#slider {
-    width: 150px; /* Fixed small width */
-    height: 20px;
-    border-radius: 10px;
-    background: linear-gradient(to right, blue, red);
-    position: relative;
-}
+  <!-- Hot-to-Cold Slider -->
+  <div id="slider-container">
+    <div id="slider"></div>
+    <div id="slider-labels">
+      <span>-16</span>
+      <span>0</span>
+      <span>16</span>
+    </div>
+  </div>
 
-#slider::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-image: repeating-linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0.5),
-        rgba(255, 255, 255, 0.5) 2px,
-        transparent 2px,
-        transparent 6px
-    );
-    border-radius: 10px;
-}
+  <!-- Map container -->
+  <div id="map"></div>
 
-#slider-labels {
-    display: flex;
-    justify-content: space-between;
-    width: 150px; /* Fixed width */
-    margin-top: 5px;
-}
-
-#slider-labels span {
-    font-size: 0.9em;
-}
-
-#map {
-    width: 100%;
-    height: 600px; /* Increased height for the map */
-    margin-top: 20px;
-}
-
-/* Styling for the speech bubble itself */
-.mapboxgl-popup {
-    background-color: #2c2c2c !important; /* Dark background for the speech bubble */
-    color: #f5d3b5 !important; /* Creamy orange-brown text */
-    font-family: sans-serif; /* Font style */
-    max-width: 200px; /* Adjust to fit the content */
-    padding: 15px;
-    border-radius: 12px; /* Rounded corners for the bubble */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow for bubble depth */
-    position: relative; /* Make sure the popup content is positioned properly */
-    border: 2px solid #f5d3b5; /* Cream-colored outline */
-    font-family: 'Pattaya' !important; /* Font from your code */
-}
-
-.mapboxgl-popup .mapboxgl-popup-close-button {
-    color: #f5d3b5 !important; /* Close button color */
-    font-size: 1.5em; /* Resize close button */
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-/* Adjust the point of the speech bubble */
-.mapboxgl-popup-tip {
-    border-width: 10px;
-    border-top-color: #2c2c2c !important; /* Dark background color */
-    border-bottom-color: transparent !important;
-    border-left-color: transparent !important;
-    border-right-color: transparent !important;
-}
-
-/* Title styling */
-.mapboxgl-popup-content h3 {
-    font-size: 1.1em; /* Adjust title size */
-    margin: 0;
-}
-
-/* General content styling */
-.mapboxgl-popup-content p {
-    font-size: 1em;
-    font-weight: bold;
-    margin: 5px 0;
-}
-
-/* Add the triangle updates */
-.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
-.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip, 
-.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
-    border-bottom-color: #2c2c2c !important; /* Match the popup background */
-}
-
-.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
-.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
-.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
-    border-top-color: #2c2c2c !important; /* Match the popup background */
-}
-
-.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
-    border-right-color: #2c2c2c !important; /* Match the popup background */
-}
-
-.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
-    border-left-color: #2c2c2c !important; /* Match the popup background */
-}
+  <!-- Mapbox GL JS -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.9
+::contentReference[oaicite:0]{index=0}
+ 
