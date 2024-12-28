@@ -93,12 +93,12 @@ h2 {
 
 .mapboxgl-popup-content {
     font-family: 'Verdana', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     padding: 10px;
 }
 
 .mapboxgl-popup-close-button {
-    color: #f5d3b5; /* Close button color */
+    color: #000000; /* Close button color */
 }
 
 .mapboxgl-popup-tip {
