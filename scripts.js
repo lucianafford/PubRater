@@ -78,6 +78,40 @@ function fetchGeoJSON() {
       map.on('mouseleave', 'pubs-layer', () => {
         map.getCanvas().style.cursor = '';
       });
+
+      // **Search and Filter Code**
+
+      // Function to search pubs by name
+      function searchPub(name) {
+        const searchResult = data.features.filter(pub => pub.properties.pubName.toLowerCase().includes(name.toLowerCase()));
+
+        // Clear existing markers
+        map.getSource('pubs').setData({
+          type: 'FeatureCollection',
+          features: searchResult
+        });
+      }
+
+      // **Search Input**
+      const searchInput = document.createElement('input');
+      searchInput.type = 'text';
+      searchInput.placeholder = 'Search by Pub Name';
+      searchInput.style.position = 'absolute';
+      searchInput.style.top = '10px';
+      searchInput.style.left = '50%';
+      searchInput.style.transform = 'translateX(-50%)';
+      searchInput.style.padding = '10px';
+      searchInput.style.border = '1px solid #ccc';
+      searchInput.style.borderRadius = '5px';
+      searchInput.style.fontSize = '16px';
+
+      document.body.appendChild(searchInput);
+
+      searchInput.addEventListener('input', (event) => {
+        const query = event.target.value;
+        searchPub(query);
+      });
+
     })
     .catch(error => {
       console.error('Error fetching GeoJSON data:', error);
