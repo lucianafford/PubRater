@@ -17,6 +17,31 @@
 
   <!-- Custom styles -->
   <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    /* Custom popup styles */
+    .mapboxgl-popup {
+        background-color: #6f4f28; /* Warm brown background */
+        color: #f5f5dc; /* Light beige text */
+        border-radius: 8px;
+        border: none;
+    }
+
+    .mapboxgl-popup-content {
+        font-family: 'Pattaya', sans-serif; /* Custom font */
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .mapboxgl-popup-close-button {
+        color: #f5f5dc; /* Close button color */
+    }
+
+    /* Remove background element behind the triangle pointer */
+    .mapboxgl-popup-tip {
+        display: none;
+    }
+  </style>
 </head>
 <body>
   <!-- Title and Subtitle -->
@@ -41,5 +66,23 @@
 
   <!-- External JavaScript -->
   <script src="scripts.js" defer></script>
+
+  <script>
+    // Initialize the map
+    mapboxgl.accessToken = 'pk.eyJ1IjoibHVjaWFuYWZmb3JzIiwiYSI6ImNtNTRnZnRiMDBmYXYybHNneTNobDNoODEifQ.SIUur0MYADGFIENyXuVwRA';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [-0.1276, 51.5074], // Example coordinates (London)
+        zoom: 13
+    });
+
+    // Example marker with a custom popup
+    new mapboxgl.Marker()
+        .setLngLat([-0.1276, 51.5074])
+        .setPopup(new mapboxgl.Popup({ closeButton: false })
+            .setHTML('<div><h3>The Capitol</h3><p>Rating: 4.5</p></div>'))
+        .addTo(map);
+  </script>
 </body>
 </html>
