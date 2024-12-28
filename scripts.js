@@ -56,6 +56,10 @@ function fetchGeoJSON() {
         // Normalize the rating and display it as rating/16
         var normalizedRating = normalizeRating(rating);
 
+        // Log rating and normalized rating for debugging
+        console.log('Raw rating:', rating);
+        console.log('Normalized rating:', normalizedRating);
+
         // Create a popup with pub details and normalized rating
         new mapboxgl.Popup()
           .setLngLat(coordinates)
