@@ -123,6 +123,10 @@ if (pubName) {
 // Add filter control (for filtering by rating range)
 const filterControl = document.createElement('div');
 filterControl.className = 'mapboxgl-ctrl';
+filterControl.style.position = 'absolute';
+filterControl.style.top = '10px';
+filterControl.style.right = '10px';
+filterControl.style.zIndex = '1'; // Ensure the button is above the map
 filterControl.innerHTML = `
   <button id="filter-button" style="background-color: #212020; color: #f5d3b5; border: none; padding: 10px; cursor: pointer;">
     Filter
@@ -159,12 +163,15 @@ filterControl.addEventListener('click', () => {
   ]);
 });
 
-map.addControl(new mapboxgl.Popup({ closeButton: false }), 'top-right');
 map.getCanvas().parentNode.appendChild(filterControl);
 
 // Add search bar control
 const searchControl = document.createElement('div');
 searchControl.className = 'mapboxgl-ctrl';
+searchControl.style.position = 'absolute';
+searchControl.style.top = '50px'; // Adjusted top offset
+searchControl.style.right = '10px'; // Adjusted right offset
+searchControl.style.zIndex = '1'; // Ensure the search bar is above the map
 searchControl.innerHTML = `
   <input id="search-bar" type="text" placeholder="Search pub by name" style="padding: 5px; border-radius: 5px;">
 `;
