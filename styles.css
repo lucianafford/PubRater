@@ -117,6 +117,7 @@ h2 {
 
 /* General content styling */
 .mapboxgl-popup-content p {
-    font-size: 0.9em; /* Smaller content text */
+    font-size: 1em;
+    font-weight: bold;
     margin: 5px 0;
 }
