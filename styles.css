@@ -6,9 +6,9 @@ body {
     padding: 3px; /* Reduced padding */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; /* Adjusted to allow the map to expand */
     align-items: center;
-    height: 90vh;
+    height: 100vh; /* Full height to make sure the map fits */
 }
 
 h1 {
@@ -82,6 +82,7 @@ h2 {
     width: 100%;
     height: 500px; /* Increased height for the map */
     margin-top: 20px;
+    position: relative; /* Ensure controls are above the map */
 }
 
 .mapboxgl-popup {
@@ -103,4 +104,40 @@ h2 {
 
 .mapboxgl-popup-tip {
     display: none; /* Remove the element behind the triangle pointer */
+}
+
+/* Custom controls for filter and search bar */
+.filter-control, .search-control {
+    position: absolute;
+    top: 10px; /* Space from the top */
+    right: 10px; /* Space from the right */
+    z-index: 1; /* Ensure they are above the map */
+    background-color: transparent;
+    border: none;
+}
+
+.filter-control {
+    top: 10px; /* Adjust position */
+    right: 10px; /* Adjust position */
+}
+
+#filter-button {
+    background-color: #212020; /* Same as map background */
+    color: #f5d3b5; /* Button color */
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.search-control {
+    top: 50px; /* Space below the filter button */
+    right: 10px;
+}
+
+#search-bar {
+    padding: 5px;
+    border-radius: 5px;
+    font-family: 'Verdana', sans-serif;
+    font-size: 14px;
+    width: 200px; /* Adjust width */
 }
