@@ -87,4 +87,20 @@ h2 {
 .mapboxgl-popup {
     background-color: #212020; /* Warm black background */
     color: #f5d3b5; /* Creamy orange-brown text */
+    border-radius: 8px; /* Rounded corners */
+    border: none;
+}
+
+.mapboxgl-popup-content {
+    font-family: 'Pattaya', sans-serif;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.mapboxgl-popup-close-button {
+    color: #f5d3b5; /* Close button color */
+}
+
+.mapboxgl-popup-tip {
+    display: none; /* Remove the element behind the triangle pointer */
 }
