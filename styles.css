@@ -15,6 +15,7 @@ h1 {
     color: #f5d3b5; /* Creamy orange-brown title */
     font-size: 2.5em; /* Adjust title size smaller */
     margin: 0;
+    padding-top: 0; /* Remove extra space above */
     text-align: center; /* Center-align the title */
 }
 
@@ -24,6 +25,7 @@ h2 {
     text-align: center; /* Center-align the subtitle */
     margin-top: 4px;
     line-height: 0.5;
+    padding-top: 0; /* Remove extra space above */
 }
 
 #slider-container {
