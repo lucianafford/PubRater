@@ -93,25 +93,22 @@ function fetchGeoJSON() {
       }
 
       // **Search Input**
-      const searchContainer = document.createElement('div');
-      searchContainer.style.position = 'absolute';
-      searchContainer.style.bottom = '20px';
-      searchContainer.style.left = '20px';
-      searchContainer.style.padding = '10px';
-      searchContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-      searchContainer.style.borderRadius = '5px';
-      searchContainer.style.zIndex = '1';
-
       const searchInput = document.createElement('input');
       searchInput.type = 'text';
       searchInput.placeholder = 'Search by Pub Name';
+      searchInput.style.position = 'absolute';
+      searchInput.style.bottom = '20px'; // Place it just above the map
+      searchInput.style.right = '20px'; // Place it to the right
       searchInput.style.padding = '8px';
       searchInput.style.border = 'none';
       searchInput.style.borderRadius = '5px';
-      searchInput.style.width = '150px';
+      searchInput.style.backgroundColor = 'black'; // Black background
+      searchInput.style.color = 'white'; // White text
+      searchInput.style.fontSize = '14px';
+      searchInput.style.width = '150px'; // Smaller width
+      searchInput.style.zIndex = '1'; // Ensure it stays above the map
 
-      searchContainer.appendChild(searchInput);
-      document.body.appendChild(searchContainer);
+      document.body.appendChild(searchInput);
 
       searchInput.addEventListener('input', (event) => {
         const query = event.target.value;
