@@ -35,10 +35,16 @@ h2 {
 }
 
 #slider {
-    width: 150px; /* Fixed small width */
+    width: 200px; /* Slightly wider slider */
     height: 20px;
     border-radius: 10px;
-    background: linear-gradient(to right, blue, orange, red); /* Gradient from blue to orange to red */
+    background: linear-gradient(to right, 
+        #D3D3D3,    /* Light grey for -16 */
+        blue,       /* Blue for -11 to 0 */
+        orange,     /* Orange for 0 */
+        red,        /* Red for 10 */
+        gold        /* Gold for 11 to 16 */
+    );
     position: relative;
 }
 
@@ -62,7 +68,7 @@ h2 {
 #slider-labels {
     display: flex;
     justify-content: space-between;
-    width: 150px; /* Fixed width */
+    width: 200px; /* Adjusted to match slider width */
     margin-top: 5px;
 }
 
