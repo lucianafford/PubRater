@@ -97,10 +97,10 @@ function fetchGeoJSON() {
       searchInput.type = 'text';
       searchInput.placeholder = 'Search by Pub Name';
       searchInput.style.position = 'absolute';
-      searchInput.style.top = '10px';
-      searchInput.style.right = '10px'; // Place it to the top right
+      searchInput.style.top = '20px';
+      searchInput.style.right = '20px'; // Place it to the top right
       searchInput.style.padding = '8px';
-      searchInput.style.border = '1px solid #ccc';
+      searchInput.style.border = 'none';
       searchInput.style.borderRadius = '5px';
       searchInput.style.backgroundColor = 'black'; // Black background
       searchInput.style.color = 'white'; // White text
