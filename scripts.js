@@ -38,9 +38,13 @@ function fetchGeoJSON() {
             'interpolate',
             ['linear'],
             ['get', 'rating'],
-            -16, 'blue', // Blue for lower ratings
+            -16, '#D3D3D3', // Light grey for -16
+            -11, 'blue', // Blue for -11
+            -10, 'blue', // Blue for -10
             0, 'orange', // Orange for neutral ratings
-            16, 'red' // Red for higher ratings
+            10, 'red', // Red for 10
+            11, 'red', // Red for 11
+            16, 'gold' // Gold for 16
           ],
           'circle-stroke-color': '#ffffff',
           'circle-stroke-width': 2
