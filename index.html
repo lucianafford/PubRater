@@ -80,13 +80,10 @@
             var pubName = e.features[0].properties.pubName;
             var rating = e.features[0].properties.rating;
 
-            // Create a popup with pub details using your previous format
+            // Create a popup with pub details
             new mapboxgl.Popup()
               .setLngLat(coordinates)
-              .setHTML(`
-                <h3>${pubName}</h3>
-                <p>Rating: ${rating}</p>
-              `)
+              .setHTML(`<h3>${pubName}</h3><p>Rating: ${rating}</p>`)
               .addTo(map);
           });
 
