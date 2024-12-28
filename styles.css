@@ -28,47 +28,52 @@ h2 {
 
 #slider-container {
     display: flex;
-    flex-direction: row; /* Position slider to the right */
+    flex-direction: column;
     align-items: center;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 5px; /* Reduced space above the slider */
+    margin-bottom: 5px; /* Reduced space below the slider */
 }
 
 #slider {
-    width: 133px; /* 2/3 of the original width (200px) */
-    height: 300px; /* Vertical slider */
+    width: 200px; /* Slightly wider slider */
+    height: 20px;
     border-radius: 10px;
-    background: linear-gradient(to top, 
+    background: linear-gradient(to right, 
         #D3D3D3,    /* Light grey for -16 */
-        blue,        /* Blue for -10 */
-        orange,      /* Orange for 0 */
-        red,         /* Red for 10 */
-        #228B22      /* Forest Green for 16 */
+        blue,       /* Blue for -11 to 0 */
+        orange,     /* Orange for 0 */
+        red,        /* Red for 10 */
+        #228B22        /* Forest Green for 11 to 16 */
     );
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
-.slider-labels-left, .slider-labels-right {
+#slider::before {
+    content: '';
     position: absolute;
     top: 0;
+    left: 0;
+    height: 100%;
     width: 100%;
+    background-image: repeating-linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5) 2px,
+        transparent 2px,
+        transparent 6px
+    );
+    border-radius: 10px;
+}
+
+#slider-labels {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    width: 200px; /* Adjusted to match slider width */
+    margin-top: 5px;
 }
 
-.slider-labels-left {
-    font-size: 1.2em;
-    margin-left: 5px;
-}
-
-.slider-labels-right {
-    font-size: 0.8em;
-    margin-right: 5px;
-    font-style: italic;
+#slider-labels span {
+    font-size: 0.9em;
 }
 
 #map {
