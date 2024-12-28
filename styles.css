@@ -104,3 +104,27 @@ h2 {
 .mapboxgl-popup-tip {
     display: none; /* Remove the element behind the triangle pointer */
 }
+
+#search-container {
+  position: absolute; /* Absolute positioning to place it above the map */
+  top: 20px; /* Position it slightly from the top */
+  right: 20px; /* Position it slightly from the right */
+  background-color: black; /* Set black background */
+  padding: 5px; /* Add some padding around the search bar */
+  border-radius: 5px; /* Optional: rounded corners */
+  z-index: 1; /* Ensure it appears above the map */
+}
+
+#search-bar {
+  width: 200px; /* Smaller width for the search bar */
+  padding: 5px; /* Add some internal padding */
+  font-size: 14px; /* Smaller font size */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: black; /* Black background */
+  color: white; /* White text */
+}
+
+#search-bar::placeholder {
+  color: white; /* White placeholder text */
+}
