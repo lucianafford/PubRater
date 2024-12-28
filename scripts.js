@@ -42,7 +42,7 @@ function fetchGeoJSON() {
             -10, 'blue', // Blue for -10
             0, 'orange', // Orange for neutral ratings
             10, 'red', // Red for 10
-            16, '#228B22' // green for 16
+            16, '#228B22' // Green for 16
           ],
           'circle-stroke-color': '#ffffff',
           'circle-stroke-width': 2
