@@ -43,7 +43,7 @@ h2 {
         blue,       /* Blue for -11 to 0 */
         orange,     /* Orange for 0 */
         red,        /* Red for 10 */
-        gold        /* Gold for 11 to 16 */
+        228B22        /* Gold for 11 to 16 */
     );
     position: relative;
 }
