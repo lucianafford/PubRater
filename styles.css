@@ -1,38 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PubRater Map</title>
+/* General body styling */
+body {
+  font-family: 'Pattaya', sans-serif;
+  background-color: #000; /* Black background */
+  color: #F3F3DD; /* Light text color for contrast */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  <!-- Google Fonts Link for Pattaya -->
-  <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+/* Title and Subtitle */
+h1 {
+  font-size: 2.5em;
+  color: #FF5733; /* A warm color to stand out */
+  margin-top: 20px;
+}
 
-  <!-- Mapbox GL CSS -->
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" />
+h2 {
+  font-size: 1.2em;
+  color: #F3F3DD;
+  margin-bottom: 40px;
+}
 
-  <!-- Custom styles -->
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <!-- Title and Subtitle -->
-  <h1>PubRater</h1> <!-- This is the title -->
-  <h2>By Lucian Afford</h2> <!-- This is the subtitle -->
+/* Hot-to-Cold Slider Styling */
+#slider-container {
+  width: 90%;
+  max-width: 600px;
+  background-color: #444; /* Dark background for the slider */
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
 
-  <!-- Hot-to-Cold Slider -->
-  <div id="slider-container">
-    <div id="slider"></div>
-    <div id="slider-labels">
-      <span>-16</span>
-      <span>0</span>
-      <span>16</span>
-    </div>
-  </div>
+#slider {
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(to right, #FF5733, #3498db); /* Hot to cold color gradient */
+  border-radius: 5px;
+  position: relative;
+}
 
-  <!-- Map container -->
-  <div id="map"></div>
+#slider-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 0.9em;
+}
 
-  <!-- Mapbox GL JS -->
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.9
-::contentReference[oaicite:0]{index=0}
- 
+#slider-labels span {
+  color: #F3F3DD;
+}
+
+/* Map container */
+#map {
+  width: 100%;
+  height: 500px;
+  margin-top: 20px;
+}
+
+/* Popup Styling for Map */
+.mapboxgl-Popup-content {
+  color: #F3F3DD;
+  background-color: #333;
+  border: 2px solid #FF5733; /* Border to match the slider's hot color */
+  max-width: 250px;
+  box-shadow: 3px 3px 2px #8B5D33;
+  font-family: 'Pattaya';
+  padding: 10px;
+}
+
+.mapboxgl-popup-tip {
+  border-top-color: #FF5733;
+}
+
+/* Map Navigation Controls */
+.mapboxgl-ctrl-top-right {
+  margin-top: 10px;
+}
