@@ -120,6 +120,76 @@ if (pubName) {
   geocodePlace(pubName);
 }
 
+// Add filter control (for filtering by rating range)
+const filterControl = document.createElement('div');
+filterControl.className = 'mapboxgl-ctrl';
+filterControl.style.position = 'absolute';
+filterControl.style.top = '10px';
+filterControl.style.right = '10px';
+filterControl.style.zIndex = '1'; // Ensure the button is above the map
+filterControl.innerHTML = `
+  <button id="filter-button" style="background-color: #212020; color: #f5d3b5; border: none; padding: 10px; cursor: pointer;">
+    Filter
+  </button>
+`;
+
+filterControl.addEventListener('click', () => {
+  const ratingRange = prompt("Enter rating range:\n\n-16 to -11, -10 to 0, 1 to 10, 11 to 16");
+  let filteredRatings = [];
+  
+  switch (ratingRange) {
+    case "-16 to -11":
+      filteredRatings = [-16, -11];
+      break;
+    case "-10 to 0":
+      filteredRatings = [-10, 0];
+      break;
+    case "1 to 10":
+      filteredRatings = [1, 10];
+      break;
+    case "11 to 16":
+      filteredRatings = [11, 16];
+      break;
+    default:
+      alert("Invalid range");
+      return;
+  }
+
+  // Filter pubs based on the selected range
+  map.setFilter('pubs-layer', [
+    'all',
+    ['>=', ['get', 'rating'], filteredRatings[0]],
+    ['<=', ['get', 'rating'], filteredRatings[1]]
+  ]);
+});
+
+map.getCanvas().parentNode.appendChild(filterControl);
+
+// Add search bar control
+const searchControl = document.createElement('div');
+searchControl.className = 'mapboxgl-ctrl';
+searchControl.style.position = 'absolute';
+searchControl.style.top = '50px'; // Adjusted top offset
+searchControl.style.right = '10px'; // Adjusted right offset
+searchControl.style.zIndex = '1'; // Ensure the search bar is above the map
+searchControl.innerHTML = `
+  <input id="search-bar" type="text" placeholder="Search pub by name" style="padding: 5px; border-radius: 5px;">
+`;
+
+searchControl.querySelector('#search-bar').addEventListener('input', (event) => {
+  const searchTerm = event.target.value.toLowerCase();
+  if (searchTerm === '') {
+    map.setFilter('pubs-layer', ['>=', ['get', 'rating'], -16]);
+  } else {
+    map.setFilter('pubs-layer', ['all', 
+      ['>=', ['get', 'rating'], -16], 
+      ['match', ['get', 'pubName'], searchTerm, true, false]
+    ]);
+  }
+});
+
+map.getCanvas().parentNode.appendChild(searchControl);
+
 // Filter Menu Toggle
 const filterBtn = document.getElementById('filter-btn');
 const filterMenu = document.getElementById('filter-menu');
