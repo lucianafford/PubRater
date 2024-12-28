@@ -1,137 +1,44 @@
+/* Existing body and map styles unchanged */
+
 body {
     font-family: 'Pattaya', sans-serif;
-    background-color: #2c2c2c; /* Warm black background */
-    color: #f5d3b5; /* Creamy orange-brown text */
+    background-color: #2c2c2c;
+    color: #f5d3b5;
     margin: 0;
-    padding: 3px; /* Reduced padding */
+    padding: 3px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Adjusted to allow the map to expand */
+    justify-content: flex-start;
     align-items: center;
-    height: 100vh; /* Full height to make sure the map fits */
-}
-
-h1 {
-    color: #f5d3b5; /* Creamy orange-brown title */
-    font-size: 2.5em; /* Adjust title size smaller */
-    margin: 0;
-    padding-top: 0; /* Remove extra space above */
-    text-align: center; /* Center-align the title */
-}
-
-h2 {
-    color: #f5d3b5; /* Creamy orange-brown subtitle */
-    font-size: 1em;
-    text-align: center; /* Center-align the subtitle */
-    margin-top: 4px;
-    line-height: 0.5;
-    padding-top: 0; /* Remove extra space above */
-}
-
-#slider-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 5px; /* Reduced space above the slider */
-    margin-bottom: 3px; /* Reduced space below the slider */
-}
-
-#slider {
-    width: 200px; /* Slightly wider slider */
-    height: 20px;
-    border-radius: 10px;
-    background: linear-gradient(to right, 
-        #D3D3D3,    /* Light grey for -16 */
-        blue,       /* Blue for -11 to 0 */
-        orange,     /* Orange for 0 */
-        red,        /* Red for 10 */
-        #228B22        /* Forest Green for 11 to 16 */
-    );
-    position: relative;
-}
-
-#slider::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-image: repeating-linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0.5),
-        rgba(255, 255, 255, 0.5) 2px,
-        transparent 2px,
-        transparent 6px
-    );
-    border-radius: 10px;
-}
-
-#slider-labels {
-    display: flex;
-    justify-content: space-between;
-    width: 200px; /* Adjusted to match slider width */
-    margin-top: 5px;
-}
-
-#slider-labels span {
-    font-size: 0.9em;
+    height: 100vh;
 }
 
 #map {
     width: 100%;
-    height: 500px; /* Increased height for the map */
+    height: 500px;
     margin-top: 20px;
-    position: relative; /* Ensure controls are above the map */
+    position: relative;
 }
 
-.mapboxgl-popup {
-    background-color: #212020; /* Warm black background */
-    color: #000000; /* Creamy orange-brown text */
-    border-radius: 8px; /* Rounded corners */
-    border: none;
-}
-
-.mapboxgl-popup-content {
-    font-family: 'Verdana', sans-serif;
-    font-size: 14px;
-    padding: 10px;
-}
-
-.mapboxgl-popup-close-button {
-    color: #f5d3b5; /* Close button color */
-}
-
-.mapboxgl-popup-tip {
-    display: none; /* Remove the element behind the triangle pointer */
-}
-
-/* Custom controls for filter and search bar */
-.filter-control, .search-control {
+/* Controls container */
+#controls-container {
     position: absolute;
-    top: 10px; /* Space from the top */
-    right: 10px; /* Space from the right */
-    z-index: 1; /* Ensure they are above the map */
-    background-color: transparent;
-    border: none;
+    top: 10px;
+    left: 10px;
+    z-index: 10; /* Ensure controls are above the map */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 
-.filter-control {
-    top: 10px; /* Adjust position */
-    right: 10px; /* Adjust position */
-}
-
-#filter-button {
-    background-color: #212020; /* Same as map background */
-    color: #f5d3b5; /* Button color */
+.filter-control, .search-control {
+    background-color: #212020;
+    color: #f5d3b5;
     padding: 10px;
-    cursor: pointer;
     border-radius: 5px;
-}
-
-.search-control {
-    top: 50px; /* Space below the filter button */
-    right: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 #search-bar {
@@ -139,5 +46,46 @@ h2 {
     border-radius: 5px;
     font-family: 'Verdana', sans-serif;
     font-size: 14px;
-    width: 200px; /* Adjust width */
+    width: 150px;
+    transition: width 0.3s ease; /* Smooth transition for expanding search */
+}
+
+#search-bar.expanded {
+    width: 250px; /* Expanded width when focused */
+}
+
+#filter-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: #212020;
+    border-radius: 5px;
+    padding: 10px;
+    color: #f5d3b5;
+    width: 200px;
+    top: 40px; /* Position below the filter button */
+    left: 0;
+    z-index: 11;
+}
+
+#filter-menu.active {
+    display: block; /* Show when active */
+}
+
+#filter-menu select {
+    background-color: #333;
+    color: #f5d3b5;
+    border: none;
+    padding: 8px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+#filter-menu .reset-button {
+    background-color: #f5d3b5;
+    color: #212020;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
 }
