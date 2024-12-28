@@ -1,178 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map with Search and Filter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
-    <style>
-        /* Existing body and map styles unchanged */
-        body {
-            font-family: 'Pattaya', sans-serif;
-            background-color: #2c2c2c;
-            color: #f5d3b5;
-            margin: 0;
-            padding: 3px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100vh;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>PubRater</title>
 
-        #map {
-            width: 100%;
-            height: 500px;
-            margin-top: 20px;
-            position: relative;
-        }
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-        /* Controls container */
-        #controls-container {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 10; /* Ensure controls are above the map */
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-        }
+  <!-- Google Fonts Link for Pattaya -->
+  <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
 
-        .filter-control, .search-control {
-            background-color: #212020;
-            color: #f5d3b5;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
+  <!-- Mapbox GL CSS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" />
 
-        #search-bar {
-            padding: 5px;
-            border-radius: 5px;
-            font-family: 'Verdana', sans-serif;
-            font-size: 14px;
-            width: 150px;
-            transition: width 0.3s ease; /* Smooth transition for expanding search */
-        }
-
-        #search-bar.expanded {
-            width: 250px; /* Expanded width when focused */
-        }
-
-        #filter-menu {
-            display: none; /* Hidden by default */
-            position: absolute;
-            background-color: #212020;
-            border-radius: 5px;
-            padding: 10px;
-            color: #f5d3b5;
-            width: 200px;
-            top: 40px; /* Position below the filter button */
-            left: 0;
-            z-index: 11;
-        }
-
-        #filter-menu.active {
-            display: block; /* Show when active */
-        }
-
-        #filter-menu select {
-            background-color: #333;
-            color: #f5d3b5;
-            border: none;
-            padding: 8px;
-            width: 100%;
-            border-radius: 5px;
-        }
-
-        #filter-menu .reset-button {
-            background-color: #f5d3b5;
-            color: #212020;
-            padding: 8px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            width: 100%;
-        }
-    </style>
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Title and Subtitle -->
+  <h1>PubRater</h1>
+  <h2>By Lucian Afford</h2>
 
-    <!-- Controls container -->
-    <div id="controls-container">
-        <!-- Filter control -->
-        <div class="filter-control" id="filter-btn">
-            Filter
-        </div>
-
-        <!-- Search control -->
-        <div class="search-control" id="search-btn">
-            <input type="text" id="search-bar" placeholder="Search" />
-        </div>
+  <!-- Hot-to-Cold Slider -->
+  <div id="slider-container">
+    <div id="slider"></div>
+    <div id="slider-labels">
+      <span>-16</span>
+      <span>0</span>
+      <span>16</span>
     </div>
+  </div>
 
-    <!-- Filter menu (hidden by default) -->
-    <div id="filter-menu">
-        <select id="filter-range">
-            <option value="-16,-11">-16 to -11</option>
-            <option value="-10,0">-10 to 0</option>
-            <option value="1,10">1 to 10</option>
-            <option value="11,16">11 to 16</option>
-        </select>
-        <button class="reset-button" id="reset-filter">Reset Filter</button>
-    </div>
+  <!-- Map container -->
+  <div id="map"></div>
 
-    <!-- Map container -->
-    <div id="map"></div>
+  <!-- Mapbox GL JS -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/2.14.1/mapbox-gl.min.js"></script>
-    <script>
-        // Initialize map
-        mapboxgl.accessToken = 'your-access-token';  // Ensure to replace 'your-access-token' with your actual Mapbox access token
-        const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [0, 0], // Change to your desired center coordinates
-            zoom: 2
-        });
-
-        // Filter Menu Toggle
-        const filterBtn = document.getElementById('filter-btn');
-        const filterMenu = document.getElementById('filter-menu');
-
-        filterBtn.addEventListener('click', function () {
-            filterMenu.classList.toggle('active');
-        });
-
-        // Search Bar Toggle (Expanding)
-        const searchBtn = document.getElementById('search-btn');
-        const searchBar = document.getElementById('search-bar');
-
-        searchBar.addEventListener('focus', function () {
-            searchBar.classList.add('expanded');
-        });
-
-        searchBar.addEventListener('blur', function () {
-            searchBar.classList.remove('expanded');
-        });
-
-        // Filter Range Selection
-        const filterRange = document.getElementById('filter-range');
-        filterRange.addEventListener('change', function () {
-            const selectedRange = filterRange.value;
-            console.log(`Selected Range: ${selectedRange}`);
-            // You can use this range to filter markers on the map
-        });
-
-        // Reset Filter
-        const resetFilterButton = document.getElementById('reset-filter');
-        resetFilterButton.addEventListener('click', function () {
-            filterRange.value = '';
-            console.log('Filter Reset');
-            // Reset map markers or other content as needed
-        });
-    </script>
+  <!-- External JavaScript -->
+  <script src="scripts.js" defer></script>
 </body>
 </html>
