@@ -86,7 +86,7 @@ h2 {
 
 .mapboxgl-popup {
     background-color: #212020; /* Warm black background */
-    color: #f5d3b5; /* Creamy orange-brown text */
+    color: #212020; /* Creamy orange-brown text */
     border-radius: 8px; /* Rounded corners */
     border: none;
 }
