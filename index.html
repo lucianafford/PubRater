@@ -14,23 +14,66 @@
   <!-- Custom styles -->
   <style>
     /* Full-screen map */
-    #map {
-      width: 100%;
-      height: 500px;
+    body {
+      font-family: 'Pattaya', sans-serif;
+      background-color: #000; /* Black background */
+      color: #F3F3DD; /* Light text color for contrast */
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     /* Title and subtitle styling */
     h1 {
-      font-family: 'Pattaya', sans-serif;
-      text-align: center;
-      color: #91785D;
+      font-size: 2.5em;
+      color: #FF5733; /* A warm color to stand out */
       margin-top: 20px;
+      text-align: center;
     }
 
     h2 {
-      text-align: center;
+      font-size: 1.2em;
       color: #F3F3DD;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    /* Hot-to-Cold Slider Styling */
+    #slider-container {
+      width: 90%;
+      max-width: 600px;
+      background-color: #444; /* Dark background for the slider */
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    #slider {
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(to right, #FF5733, #3498db); /* Hot to cold color gradient */
+      border-radius: 5px;
+      position: relative;
+    }
+
+    #slider-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 0.9em;
+    }
+
+    #slider-labels span {
+      color: #F3F3DD;
+    }
+
+    /* Map container */
+    #map {
+      width: 100%;
+      height: 500px;
+      margin-top: 20px;
     }
 
     /* Custom Popup Styles */
@@ -56,9 +99,20 @@
   </style>
 </head>
 <body>
+
   <!-- Title and Subtitle -->
   <h1>PubRater</h1> <!-- This is the title -->
   <h2>By Lucian Afford</h2> <!-- This is the subtitle -->
+
+  <!-- Hot-to-Cold Slider -->
+  <div id="slider-container">
+    <div id="slider"></div>
+    <div id="slider-labels">
+      <span>-16</span>
+      <span>0</span>
+      <span>16</span>
+    </div>
+  </div>
 
   <!-- Map container -->
   <div id="map"></div>
