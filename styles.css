@@ -38,7 +38,7 @@ h2 {
     width: 150px; /* Fixed small width */
     height: 20px;
     border-radius: 10px;
-    background: linear-gradient(to right, blue, red);
+    background: linear-gradient(to right, blue, orange, red); /* Gradient from blue to orange to red */
     position: relative;
 }
 
