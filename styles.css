@@ -28,14 +28,14 @@ h2 {
 
 #slider-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Position slider to the right */
     align-items: center;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
 #slider {
-    width: 60px; /* Thinner slider */
+    width: 133px; /* 2/3 of the original width (200px) */
     height: 300px; /* Vertical slider */
     border-radius: 10px;
     background: linear-gradient(to top, 
@@ -47,15 +47,13 @@ h2 {
     );
     position: relative;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .slider-labels-left, .slider-labels-right {
     position: absolute;
     top: 0;
-    left: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
