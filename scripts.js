@@ -9,6 +9,11 @@ const map = new mapboxgl.Map({
 
 map.addControl(new mapboxgl.NavigationControl());
 
+// Function to normalize the rating
+function normalizeRating(rating) {
+  return Math.max(-16, Math.min(16, rating)); // Ensure rating is within the -16 to 16 range
+}
+
 // Function to fetch GeoJSON data from the Google Apps Script web app
 function fetchGeoJSON() {
   const geoJSONUrl = 'https://script.google.com/macros/s/AKfycbxw1siuCZUp0YnvNSVmRmFzbibuRVhk2JGr25H2CxFTfjvD5N1NgHFBLmqUXIl5C2slyg/exec'; // Replace with the actual Web App URL
@@ -29,7 +34,14 @@ function fetchGeoJSON() {
         source: 'pubs',
         paint: {
           'circle-radius': 8,
-          'circle-color': '#FF5733',
+          'circle-color': [
+            'interpolate',
+            ['linear'],
+            ['get', 'rating'],
+            -16, 'blue', // Blue for lower ratings
+            0, 'orange', // Orange for neutral ratings
+            16, 'red' // Red for higher ratings
+          ],
           'circle-stroke-color': '#ffffff',
           'circle-stroke-width': 2
         }
@@ -41,10 +53,13 @@ function fetchGeoJSON() {
         var pubName = e.features[0].properties.pubName;
         var rating = e.features[0].properties.rating;
 
-        // Create a popup with pub details
+        // Normalize the rating and display it as rating/16
+        var normalizedRating = normalizeRating(rating);
+
+        // Create a popup with pub details and normalized rating
         new mapboxgl.Popup()
           .setLngLat(coordinates)
-          .setHTML(`<h3>${pubName}</h3><p>Rating: ${rating}</p>`)
+          .setHTML(`<h3>${pubName}</h3><p>Rating: ${normalizedRating}/16</p>`)
           .addTo(map);
       });
 
