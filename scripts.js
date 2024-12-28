@@ -106,16 +106,9 @@ function geocodePlace(name) {
           .setLngLat(coordinates)
           .setPopup(new mapboxgl.Popup().setHTML(`<h3>${placeName}</h3>`))
           .addTo(map);
-      } else {
-        console.error("No results found for this place.");
       }
     })
-    .catch(err => console.error('Error geocoding place:', err));
-}
-
-// Call geocodePlace if pub name is in the URL
-const urlParams = new URLSearchParams(window.location.search);
-const pubName = urlParams.get('pub_name');
-if (pubName) {
-  geocodePlace(pubName);
+    .catch(error => {
+      console.error('Error in geocoding place:', error);
+    });
 }
