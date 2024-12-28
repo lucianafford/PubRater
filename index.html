@@ -12,22 +12,53 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" />
 
   <!-- Custom styles -->
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Full-screen map */
+    #map {
+      width: 100%;
+      height: 500px;
+    }
+
+    /* Title and subtitle styling */
+    h1 {
+      font-family: 'Pattaya', sans-serif;
+      text-align: center;
+      color: #91785D;
+      margin-top: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #F3F3DD;
+      margin-bottom: 20px;
+    }
+
+    /* Custom Popup Styles */
+    .mapboxgl-Popup-content {
+      color: #F3F3DD;
+      background-color: #91785D;
+      border-color: #91785D;
+      max-width: 250px;
+      box-shadow: 3px 3px 2px #8B5D33;
+      font-family: 'Pattaya';
+      padding: 10px;
+    }
+
+    /* Customize the little triangle */
+    .mapboxgl-popup-tip {
+      border-top-color: #91785D;
+    }
+
+    /* Styling for the navigation control buttons */
+    .mapboxgl-ctrl-top-right {
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
   <!-- Title and Subtitle -->
   <h1>PubRater</h1> <!-- This is the title -->
   <h2>By Lucian Afford</h2> <!-- This is the subtitle -->
-
-  <!-- Hot-to-Cold Slider -->
-  <div id="slider-container">
-    <div id="slider"></div>
-    <div id="slider-labels">
-      <span>-16</span>
-      <span>0</span>
-      <span>16</span>
-    </div>
-  </div>
 
   <!-- Map container -->
   <div id="map"></div>
