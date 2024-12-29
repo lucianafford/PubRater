@@ -123,7 +123,7 @@ function fetchGeoJSON() {
       rangeFilterContainer.style.padding = '8px';
       rangeFilterContainer.style.backgroundColor = 'black';
       rangeFilterContainer.style.borderRadius = '5px';
-      rangeFilterContainer.style.color = 'white';
+      rangeFilterContainer.style.color = 'DimGray';
       rangeFilterContainer.style.fontSize = '14px';
       rangeFilterContainer.style.display = 'flex';
       rangeFilterContainer.style.flexDirection = 'row';
@@ -133,7 +133,7 @@ function fetchGeoJSON() {
       const minInput = document.createElement('input');
       minInput.type = 'number';
       minInput.placeholder = 'Min';
-      minInput.style.width = '50px';
+      minInput.style.width = '25px';
       minInput.style.marginRight = '5px';
 
       const toLabel = document.createElement('span');
@@ -143,7 +143,7 @@ function fetchGeoJSON() {
       const maxInput = document.createElement('input');
       maxInput.type = 'number';
       maxInput.placeholder = 'Max';
-      maxInput.style.width = '50px';
+      maxInput.style.width = '25px';
       maxInput.style.marginRight = '5px';
 
       const filterButton = document.createElement('button');
