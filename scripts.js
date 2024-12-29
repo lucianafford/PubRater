@@ -95,17 +95,17 @@ function fetchGeoJSON() {
       // **Search Input**
       const searchInput = document.createElement('input');
       searchInput.type = 'text';
-      searchInput.placeholder = 'Search by Pub Name';
+      searchInput.placeholder = 'Search';
       searchInput.style.position = 'absolute';
       searchInput.style.bottom = '20px'; // Place it just above the map
-      searchInput.style.right = '20px'; // Place it to the right
+      searchInput.style.right = '70px'; // Place it to the right
       searchInput.style.padding = '8px';
       searchInput.style.border = 'none';
       searchInput.style.borderRadius = '5px';
       searchInput.style.backgroundColor = 'black'; // Black background
       searchInput.style.color = 'white'; // White text
       searchInput.style.fontSize = '14px';
-      searchInput.style.width = '150px'; // Smaller width
+      searchInput.style.width = '100px'; // Smaller width
       searchInput.style.zIndex = '1'; // Ensure it stays above the map
 
       document.body.appendChild(searchInput);
