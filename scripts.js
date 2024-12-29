@@ -38,9 +38,10 @@ function fetchGeoJSON() {
             'interpolate',
             ['linear'],
             ['get', 'rating'],
-            -16, '#FF0000', // red
-            -9, '#FFA500', // orange
-            9, '#32CD32', // lim e for 10
+            -16, '#940000', // red
+            -10, '#ff0000', // red
+            0, '#FFA500', // orange
+            9, '#c7ff66', // lim e for 10
             16, '#00FF00' // Green for 16
           ],
           'circle-stroke-color': '#ffffff',
