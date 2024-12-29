@@ -44,7 +44,7 @@ h2 {
         #FF0000,    /* Light grey for -16 */
         #FFA500,       /* Blue for -11 to 0 */
         #32CD32,     /* Orange for 0 */
-        #00FF00,        /* Red for 10 */
+        #00FF00        /* Red for 10 */
     );
     position: relative;
 }
