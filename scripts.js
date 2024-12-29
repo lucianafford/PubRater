@@ -41,8 +41,8 @@ function fetchGeoJSON() {
             -16, '#940000', // red
             -10, '#ff0000', // red
             -2, '#FFA500', // orange
-            7, '#c7ff66', // lime for 10
-            16, '#196903' // green for 16
+            7, '#c7ff66', // Lime for 10
+            16, '#196903' // Green for 16
           ],
           'circle-stroke-color': '#ffffff',
           'circle-stroke-width': 2
