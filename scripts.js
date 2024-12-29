@@ -79,7 +79,7 @@ function fetchGeoJSON() {
         map.getCanvas().style.cursor = '';
       });
 
- // **Search and Filter Code**
+      // **Search and Filter Code**
 
       // Function to search pubs by name
       function searchPub(name) {
@@ -98,7 +98,7 @@ function fetchGeoJSON() {
       searchInput.placeholder = 'Search';
       searchInput.style.position = 'absolute';
       searchInput.style.bottom = '20px'; // Place it just above the map
-      searchInput.style.right = '54px'; // Place it to the right
+      searchInput.style.right = '70px'; // Place it to the right
       searchInput.style.padding = '8px';
       searchInput.style.border = 'none';
       searchInput.style.borderRadius = '5px';
@@ -179,21 +179,6 @@ function fetchGeoJSON() {
             type: 'FeatureCollection',
             features: filteredPubs
           });
-            
-          // Change button to "Clear"
-          filterButton.textContent = 'Clear';
-            } else if (filterButton.textContent === 'Clear') {
-            // Reset the markers to the original data
-            map.getSource('pubs').setData(data);
-
-            // Clear the input boxes
-            minInput.value = '';
-            maxInput.value = '';
-
-            // Reset the button text to "Filter"
-            filterButton.textContent = 'Filter';
-          }
-        });
 
           filterButton.textContent = 'Clear';
           filterButton.style.backgroundColor = 'black';
