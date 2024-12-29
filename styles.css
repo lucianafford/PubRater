@@ -41,11 +41,10 @@ h2 {
     height: 20px;
     border-radius: 10px;
     background: linear-gradient(to right, 
-        #D3D3D3,    /* Light grey for -16 */
-        blue,       /* Blue for -11 to 0 */
-        orange,     /* Orange for 0 */
-        red,        /* Red for 10 */
-        #228B22        /* Forest Green for 11 to 16 */
+        #FF0000,    /* Light grey for -16 */
+        #FFA500,       /* Blue for -11 to 0 */
+        #32CD32,     /* Orange for 0 */
+        #00FF00,        /* Red for 10 */
     );
     position: relative;
 }
