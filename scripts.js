@@ -40,9 +40,9 @@ function fetchGeoJSON() {
             ['get', 'rating'],
             -16, '#940000', // red
             -10, '#ff0000', // red
-            0, '#FFA500', // orange
-            9, '#c7ff66', // lim e for 10
-            16, '#00FF00' // Green for 16
+            -2, '#FFA500', // orange
+            7, '#c7ff66', // lim e for 10
+            16, '#196903' // Green for 16
           ],
           'circle-stroke-color': '#ffffff',
           'circle-stroke-width': 2
