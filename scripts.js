@@ -173,18 +173,27 @@ function fetchGeoJSON() {
           const filteredPubs = data.features.filter(pub => {
             const rating = pub.properties.rating;
             return rating >= minRating && rating <= maxRating;
-
-        // Clear the range input boxes
-      filterButton.addEventListener('click', () => {
-        if (filterButton.textContent === 'Clear') {
-          document.getElementById('minRating').value = '';
-          document.getElementById('maxRating').value = '';
           });
 
           map.getSource('pubs').setData({
             type: 'FeatureCollection',
             features: filteredPubs
           });
+            
+          // Change button to "Clear"
+          filterButton.textContent = 'Clear';
+            } else if (filterButton.textContent === 'Clear') {
+            // Reset the markers to the original data
+            map.getSource('pubs').setData(data);
+
+            // Clear the input boxes
+            minInput.value = '';
+            maxInput.value = '';
+
+            // Reset the button text to "Filter"
+            filterButton.textContent = 'Filter';
+          }
+        });
 
           filterButton.textContent = 'Clear';
           filterButton.style.backgroundColor = 'black';
