@@ -19,62 +19,13 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    body {
-      font-family: 'Pattaya', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #1d1d1d; /* Warm black background */
-      color: #f0e6d2; /* Cream text */
+    a {
+      text-decoration: none;
+      color: inherit; /* Match the color of surrounding text */
     }
 
-    h1, h2 {
-      text-align: center;
-      color: #f0e6d2;
-    }
-
-    h2 a {
-      color: #f0e6d2;
-    }
-
-    #dropdown-bar {
-      width: 100%;
-      background-color: #333;
-      text-align: center;
-      padding: 10px;
-      cursor: pointer;
-      color: #f0e6d2;
-      font-size: 16px;
-      border: none;
-      position: relative;
-    }
-
-    #dropdown-list {
-      display: none;
-      position: absolute;
-      top: 50px;
-      width: 100%;
-      max-height: 200px;
-      overflow-y: auto;
-      background-color: #333;
-      padding: 10px;
-      box-sizing: border-box;
-    }
-
-    #dropdown-list div {
-      background-color: #444;
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    #dropdown-list div:hover {
-      background-color: #555;
-    }
-
-    #map {
-      height: 500px;
-      width: 100%;
+    a:hover {
+      text-decoration: underline; /* Optional: Add underline on hover for clarity */
     }
   </style>
 </head>
@@ -83,14 +34,14 @@
   <h1>PubRater</h1>
   <h2>By Lucian Afford - <a href="https://docs.google.com/spreadsheets/d/15LkJfQJLgYGEBkSp84zGhyF1CFGy5XEYDOWv3U6qSfg/edit?usp=sharing" target="_blank">sheets</a></h2>
 
-  <!-- Dropdown Bar -->
-  <div id="dropdown-bar" onclick="toggleDropdown()">Click to view ratings</div>
-  <div id="dropdown-list">
-    <!-- Example list item, replace with dynamic data -->
-    <div>Rating 1: 4.5</div>
-    <div>Rating 2: 3.7</div>
-    <div>Rating 3: 4.0</div>
-    <!-- More items can go here -->
+  <!-- Hot-to-Cold Slider -->
+  <div id="slider-container">
+    <div id="slider"></div>
+    <div id="slider-labels">
+      <span>-16</span>
+      <span>0</span>
+      <span>16</span>
+    </div>
   </div>
 
   <!-- Map container -->
@@ -100,23 +51,6 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
 
   <!-- External JavaScript -->
-  <script>
-    // Toggle the dropdown list visibility
-    function toggleDropdown() {
-      const dropdownList = document.getElementById('dropdown-list');
-      dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // Set your Mapbox access token
-    mapboxgl.accessToken = 'your-mapbox-access-token-here';
-
-    // Initialize the map
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [0, 0], // Center on initial coordinates (replace with valid ones)
-      zoom: 2
-    });
-  </script>
+  <script src="scripts.js" defer></script>
 </body>
 </html>
