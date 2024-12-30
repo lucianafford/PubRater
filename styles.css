@@ -125,6 +125,7 @@ h2 {
   color: white; /* White text */
 }
 
+
 #search-bar::placeholder {
   color: white; /* White placeholder text */
 }
