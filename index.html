@@ -19,78 +19,78 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* Styling for the dropdown bar */
-    #rating-dropdown {
-      width: 100%; /* Full width of the map */
-      height: 30px; /* Thin bar */
-      background-color: #222; /* Dark background */
-      color: #f5d3b5; /* Cream text */
+    body {
       font-family: 'Pattaya', sans-serif;
-      font-size: 1em;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      border: none;
-      position: absolute;
-      top: 0;
-      z-index: 10;
+      margin: 0;
+      padding: 0;
+      background-color: #1d1d1d; /* Warm black background */
+      color: #f0e6d2; /* Cream text */
     }
 
-    #rating-list {
-      display: none; /* Hidden by default */
-      position: absolute;
-      top: 35px;
+    h1, h2 {
+      text-align: center;
+      color: #f0e6d2;
+    }
+
+    h2 a {
+      color: #f0e6d2;
+    }
+
+    #dropdown-bar {
       width: 100%;
-      max-height: 300px;
-      overflow-y: scroll;
-      background-color: #222;
-      color: #f5d3b5;
-      font-family: 'Pattaya', sans-serif;
-      font-size: 1em;
-      border-radius: 10px;
-      z-index: 10;
-      padding: 5px 20px;
+      background-color: #333;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+      color: #f0e6d2;
+      font-size: 16px;
+      border: none;
+      position: relative;
     }
 
-    .rating-item {
+    #dropdown-list {
+      display: none;
+      position: absolute;
+      top: 50px;
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
       background-color: #333;
-      border-radius: 10px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    #dropdown-list div {
+      background-color: #444;
       margin-bottom: 10px;
       padding: 10px;
-      text-align: left;
-      display: flex;
-      justify-content: space-between;
+      border-radius: 10px;
+      text-align: center;
     }
 
-    .rating-item:hover {
-      background-color: #444;
+    #dropdown-list div:hover {
+      background-color: #555;
     }
 
-    .rating-item span {
-      margin-left: 10px;
+    #map {
+      height: 500px;
+      width: 100%;
     }
   </style>
 </head>
 <body>
+  <!-- Title and Subtitle -->
   <h1>PubRater</h1>
   <h2>By Lucian Afford - <a href="https://docs.google.com/spreadsheets/d/15LkJfQJLgYGEBkSp84zGhyF1CFGy5XEYDOWv3U6qSfg/edit?usp=sharing" target="_blank">sheets</a></h2>
 
-  <!-- Dropdown Bar to open the list -->
-  <div id="rating-dropdown">Click to see Ratings</div>
-
-  <!-- Dropdown List -->
-  <div id="rating-list">
-    <!-- Rating items will be dynamically inserted here -->
+  <!-- Dropdown Bar -->
+  <div id="dropdown-bar" onclick="toggleDropdown()">Click to view ratings</div>
+  <div id="dropdown-list">
+    <!-- Example list item, replace with dynamic data -->
+    <div>Rating 1: 4.5</div>
+    <div>Rating 2: 3.7</div>
+    <div>Rating 3: 4.0</div>
+    <!-- More items can go here -->
   </div>
 
   <!-- Map container -->
@@ -100,6 +100,23 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
 
   <!-- External JavaScript -->
-  <script src="scripts.js" defer></script>
+  <script>
+    // Toggle the dropdown list visibility
+    function toggleDropdown() {
+      const dropdownList = document.getElementById('dropdown-list');
+      dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Set your Mapbox access token
+    mapboxgl.accessToken = 'your-mapbox-access-token-here';
+
+    // Initialize the map
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [0, 0], // Center on initial coordinates (replace with valid ones)
+      zoom: 2
+    });
+  </script>
 </body>
 </html>
