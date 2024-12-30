@@ -226,3 +226,4 @@ function geocodePlace(name) {
       console.error('Error in geocoding place:', error);
     });
 }
+
