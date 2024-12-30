@@ -1,80 +1,130 @@
 body {
-  font-family: 'Pattaya', sans-serif;
-  background-color: #2c2c2c;
-  color: #f5d3b5;
-  margin: 0;
-  padding: 3px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 90vh;
+    font-family: 'Pattaya', sans-serif;
+    background-color: #2c2c2c; /* Warm black background */
+    color: #f5d3b5; /* Creamy orange-brown text */
+    margin: 0;
+    padding: 3px; /* Reduced padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
 }
 
 h1 {
-  color: #f5d3b5;
-  font-size: 2.5em;
-  margin: 0;
-  padding-top: 0;
-  text-align: center;
+    color: #f5d3b5; /* Creamy orange-brown title */
+    font-size: 2.5em; /* Adjust title size smaller */
+    margin: 0;
+    padding-top: 0; /* Remove extra space above */
+    text-align: center; /* Center-align the title */
 }
 
 h2 {
-  color: #f5d3b5;
-  font-size: 1em;
-  text-align: center;
-  margin-top: 4px;
-  line-height: 0.5;
-  padding-top: 0;
+    color: #f5d3b5; /* Creamy orange-brown subtitle */
+    font-size: 1em;
+    text-align: center; /* Center-align the subtitle */
+    margin-top: 4px;
+    line-height: 0.5;
+    padding-top: 0; /* Remove extra space above */
 }
 
-#rating-dropdown {
-  width: 100%;
-  height: 30px;
-  background-color: #222;
-  color: #f5d3b5;
-  font-family: 'Pattaya', sans-serif;
-  font-size: 1em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border: none;
-  position: absolute;
-  top: 0;
-  z-index: 10;
+#slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5px; /* Reduced space above the slider */
+    margin-bottom: 3px; /* Reduced space below the slider */
 }
 
-#rating-list {
-  display: none;
-  position: absolute;
-  top: 35px;
-  width: 100%;
-  max-height: 300px;
-  overflow-y: scroll;
-  background-color: #222;
-  color: #f5d3b5;
-  font-family: 'Pattaya', sans-serif;
-  font-size: 1em;
-  border-radius: 10px;
-  z-index: 10;
-  padding: 5px 20px;
+#slider {
+    width: 200px; /* Slightly wider slider */
+    height: 20px;
+    border-radius: 10px;
+    background: linear-gradient(to right, 
+        #940000, /* red for -16 */
+        #ff0000, /* red for -10 */
+        #FFA500, /* orange for -2 */
+        #c7ff66, /* lime for 7 */
+        #196903  /* green for 16 */
+    );
+    position: relative;
 }
 
-.rating-item {
-  background-color: #333;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  padding: 10px;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
+#slider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: repeating-linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5) 2px,
+        transparent 2px,
+        transparent 6px
+    );
+    border-radius: 10px;
 }
 
-.rating-item:hover {
-  background-color: #444;
+#slider-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 200px; /* Adjusted to match slider width */
+    margin-top: 5px;
 }
 
-.rating-item span {
-  margin-left: 10px;
+#slider-labels span {
+    font-size: 0.9em;
+}
+
+#map {
+    width: 100%;
+    height: 500px; /* Increased height for the map */
+    margin-top: 20px;
+}
+
+.mapboxgl-popup {
+    background-color: #212020; /* Warm black background */
+    color: #000000; /* Creamy orange-brown text */
+    border-radius: 8px; /* Rounded corners */
+    border: none;
+}
+
+.mapboxgl-popup-content {
+    font-family: 'Verdana', sans-serif;
+    font-size: 12px;
+    padding: 10px;
+}
+
+.mapboxgl-popup-close-button {
+    color: #000000; /* Close button color */
+}
+
+.mapboxgl-popup-tip {
+    display: none; /* Remove the element behind the triangle pointer */
+}
+
+#search-container {
+  position: absolute; /* Absolute positioning to place it above the map */
+  top: 20px; /* Position it slightly from the top */
+  right: 20px; /* Position it slightly from the right */
+  background-color: black; /* Set black background */
+  padding: 5px; /* Add some padding around the search bar */
+  border-radius: 5px; /* Optional: rounded corners */
+  z-index: 1; /* Ensure it appears above the map */
+}
+
+#search-bar {
+  width: 200px; /* Smaller width for the search bar */
+  padding: 5px; /* Add some internal padding */
+  font-size: 14px; /* Smaller font size */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: black; /* Black background */
+  color: white; /* White text */
+}
+
+#search-bar::placeholder {
+  color: white; /* White placeholder text */
 }
