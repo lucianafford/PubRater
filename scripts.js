@@ -38,11 +38,11 @@ function fetchGeoJSON() {
             'interpolate',
             ['linear'],
             ['get', 'rating'],
-            -16, '#940000', // red
+            -15, '#940000', // red
             -10, '#ff0000', // red
             -2, '#FFA500', // orange
             7, '#c7ff66', // Lime for 10
-            16, '#196903' // Green for 16
+            15, '#196903' // Green for 15
           ],
           'circle-stroke-color': '#ffffff',
           'circle-stroke-width': 2
@@ -55,7 +55,7 @@ function fetchGeoJSON() {
         var pubName = e.features[0].properties.pubName;
         var rating = e.features[0].properties.rating;
 
-        // Normalize the rating and display it as rating/16
+        // Normalize the rating and display it as rating/15
         var normalizedRating = normalizeRating(rating);
 
         // Log rating and normalized rating for debugging
@@ -65,7 +65,7 @@ function fetchGeoJSON() {
         // Create a popup with pub details and normalized rating
         new mapboxgl.Popup()
           .setLngLat(coordinates)
-          .setHTML(`<h3>${pubName}</h3><p>Rating: ${normalizedRating}/16</p>`)
+          .setHTML(`<h3>${pubName}</h3><p>Rating: ${normalizedRating}/15</p>`)
           .addTo(map);
       });
 
