@@ -11,7 +11,7 @@ map.addControl(new mapboxgl.NavigationControl());
 
 // Function to normalize the rating
 function normalizeRating(rating) {
-  return Math.max(-16, Math.min(16, rating)); // Ensure rating is within the -16 to 16 range
+  return Math.max(-15, Math.min(15, rating)); // Ensure rating is within the -15 to 15 range
 }
 
 // Function to fetch GeoJSON data from the Google Apps Script web app
